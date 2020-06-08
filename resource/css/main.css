@@ -1,0 +1,38 @@
+.board-game 
+.square {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    padding: 0;
+    border: 1px solid transparent;
+}
+
+.board-game
+.square-dark {
+    background-color: #d18b47;
+}
+
+.board-game
+.square-light {
+    background-color: #ffce9e;
+}
+
+.board-game
+.square span {
+    cursor: grab;
+    font-size: 38px;
+    position: relative;
+    top: 12px;
+    left: 14px;
+
+}
+
+.board-game
+.square .piece-white {
+    color: white;
+}
+
+.board-game
+.square .piece-black {
+    color:#121010;
+}
