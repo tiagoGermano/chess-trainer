@@ -20,7 +20,7 @@ class Screen {
                 squareLight = !squareLight;
 
                 let square =  `
-                    <div id='${letters[j]}${i}' class="col-sm square ${squareStyle}">               
+                    <div id='${letters[j]}${i}' class="col square ${squareStyle}">               
                     </div>
                 `
                 HTMLBoardContent = HTMLBoardContent.concat(square)
