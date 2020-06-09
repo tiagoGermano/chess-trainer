@@ -45,5 +45,30 @@ class Chess {
     init(){
         this.screen.buildHTMLChessBoard();
         this.screen.positionPieces(this.boardMap)
+        this.screen.configureMousedown(this.drag.bind(this));
+        this.screen.configureDrop(this.drop.bind(this))
+        this.screen.configureDragover(this.dragover.bind(this))
     }
+
+    drag(ev){
+        ev.dataTransfer.dropEffect = "move";
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+        console.log(ev.target)
+
+    }
+
+    dragover(ev){
+        ev.preventDefault();
+        ev.dataTransfer.dropEffect = "move";
+    }
+
+    drop(ev) {
+        console.log(ev.dataTransfer)
+        ev.preventDefault();
+        // Get the id of the target and add the moved element to the target's DOM
+        const data = ev.dataTransfer.getData("text/plain");
+        console.log(data);
+        ev.target.appendChild(document.getElementById(data))
+    }
+
 }

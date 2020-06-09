@@ -20,7 +20,7 @@ class Screen {
                 squareLight = !squareLight;
 
                 let square =  `
-                    <div id='${letters[j]}${i}' class="col square ${squareStyle}">               
+                    <div id='${letters[j]}${i}' class="col square ${squareStyle}" ondragover="window.dragover_handler(event)" ondrop="window.drop_handler(event)">               
                     </div>
                 `
                 HTMLBoardContent = HTMLBoardContent.concat(square)
@@ -35,14 +35,26 @@ class Screen {
 
     }
 
+    static configureMousedown(dragstart_handler){
+        window.dragstart_handler = dragstart_handler
+    }
+
+    static configureDrop(drop_handler){
+        window.drop_handler = drop_handler
+    }
+
+    static configureDragover(dragover_handler){
+        window.dragover_handler = dragover_handler
+    }
+
     static positionPieces(chessBoardMap) {
         
         for (const coordinate in chessBoardMap) {
             
             const positionHTML = document.getElementById(coordinate);
             positionHTML.innerHTML = `
-                <span class="piece-${chessBoardMap[coordinate].color}">
-                    <i class="fas ${chessBoardMap[coordinate].icon}"></i>
+                <span id="p${coordinate}" class="piece-${chessBoardMap[coordinate].color}" draggable="true" ondragstart="window.dragstart_handler(event)">
+                    <i  class="piece fas ${chessBoardMap[coordinate].icon}" ></i>
                 </span>
             `
         }

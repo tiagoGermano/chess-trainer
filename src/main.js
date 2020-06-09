@@ -9,4 +9,8 @@ function onLoad(){
     chess.init()
 }
 
+function movePiece(){
+    console.log('teste')
+}
+
 window.onload = onLoad
