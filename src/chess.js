@@ -1,7 +1,8 @@
 class Chess {
-    constructor({screen, pieceBuilder}) {
+    constructor({screen, pieceBuilder, chessBoard}) {
         this.screen = screen;
         this.pieceBuilder = pieceBuilder;
+        this.ChessBoard = chessBoard;
 
         this.boardMap = {};
         this.boardMap['a8'] = this.pieceBuilder.buildRook()
