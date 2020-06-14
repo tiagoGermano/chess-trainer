@@ -17,7 +17,7 @@ class ChessBoard {
                     piece : null                    
                 }
             }
-        }        
+        }
     }
 
     static buildHTMLChessBoard(){

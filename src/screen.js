@@ -4,7 +4,7 @@ class Screen {
 
     // <i class="fas fa-chess-rook"></i>
 
-    static buildHTMLChessBoard(){
+    static buildHTMLChessBoard(chessBoard){
 
         let HTMLBoardContent = '';
         const letters = ['a','b','c','d','e','f','g','h'];
@@ -46,17 +46,23 @@ class Screen {
         window.dragover_handler = dragover_handler
     }
 
-    static positionPieces(chessBoardMap) {
+    static positionPieces(chessBoard) {
         
-        for (const coordinate in chessBoardMap) {
-            
-            const positionHTML = document.getElementById(coordinate);
-            positionHTML.innerHTML = `
-                <span id="p${coordinate}" class="piece-${chessBoardMap[coordinate].color}" draggable="true" ondragstart="window.dragstart_handler(event)">
-                    <i  class="piece fas ${chessBoardMap[coordinate].icon}" ></i>
-                </span>
-            `
+        for (const key in chessBoard) {
+            if (chessBoard.hasOwnProperty(key)) {
+                const piece = chessBoard[key].piece;
+                
+                if(piece !== null){
+                    const positionHTML = document.getElementById(key);
+                    positionHTML.innerHTML = `
+                        <span id="p${key}" class="piece-${piece.color}" draggable="true" ondragstart="window.dragstart_handler(event)">
+                            <i  class="piece fas ${piece.icon}" ></i>
+                        </span>
+                    `
+                }
+            }
         }
+
     }
 
 }

@@ -1,51 +1,65 @@
 class Chess {
-    constructor({screen, pieceBuilder, chessBoard}) {
+    constructor({screen, pieceBuilder}) {
+
+        this.chessBoard = {}
+        this.letters = ['a','b','c','d','e','f','g','h'];
+
+        for (let i = 8; i >= 1; i--) {
+
+            let squareLight = i % 2 === 0 ? false : true;
+            for(let j = 0; j < 8; j++){
+                let squareStyle = squareLight ? 'square-light': 'square-dark';
+                squareLight = !squareLight;
+
+                this.chessBoard[this.letters[j] + i] = {
+                    style : squareStyle,
+                    piece : null                    
+                }
+            }
+        }
+
         this.screen = screen;
         this.pieceBuilder = pieceBuilder;
-        this.ChessBoard = chessBoard;
 
-        this.boardMap = {};
-        this.boardMap['a8'] = this.pieceBuilder.buildRook()
-        this.boardMap['b8'] = this.pieceBuilder.buildKnight()
-        this.boardMap['c8'] = this.pieceBuilder.buildBishop()
-        this.boardMap['d8'] = this.pieceBuilder.buildQueen()
-        this.boardMap['e8'] = this.pieceBuilder.buildKing()
-        this.boardMap['f8'] = this.pieceBuilder.buildBishop()
-        this.boardMap['g8'] = this.pieceBuilder.buildKnight()
-        this.boardMap['h8'] = this.pieceBuilder.buildRook()
-        this.boardMap['a7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['b7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['c7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['d7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['e7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['f7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['g7'] = this.pieceBuilder.buildPawn()
-        this.boardMap['h7'] = this.pieceBuilder.buildPawn()
+        this.chessBoard['a8'].piece = this.pieceBuilder.buildRook()
+        this.chessBoard['b8'].piece = this.pieceBuilder.buildKnight()
+        this.chessBoard['c8'].piece = this.pieceBuilder.buildBishop()
+        this.chessBoard['d8'].piece = this.pieceBuilder.buildQueen()
+        this.chessBoard['e8'].piece = this.pieceBuilder.buildKing()
+        this.chessBoard['f8'].piece = this.pieceBuilder.buildBishop()
+        this.chessBoard['g8'].piece = this.pieceBuilder.buildKnight()
+        this.chessBoard['h8'].piece = this.pieceBuilder.buildRook()
+        this.chessBoard['a7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['b7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['c7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['d7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['e7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['f7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['g7'].piece = this.pieceBuilder.buildPawn()
+        this.chessBoard['h7'].piece = this.pieceBuilder.buildPawn()
 
         //black pieces
-        this.boardMap['a1'] = this.pieceBuilder.buildRook('black')
-        this.boardMap['b1'] = this.pieceBuilder.buildKnight('black')
-        this.boardMap['c1'] = this.pieceBuilder.buildBishop('black')
-        this.boardMap['d1'] = this.pieceBuilder.buildQueen('black')
-        this.boardMap['e1'] = this.pieceBuilder.buildKing('black')
-        this.boardMap['f1'] = this.pieceBuilder.buildBishop('black')
-        this.boardMap['g1'] = this.pieceBuilder.buildKnight('black')
-        this.boardMap['h1'] = this.pieceBuilder.buildRook('black')
-        this.boardMap['a2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['b2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['c2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['d2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['e2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['f2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['g2'] = this.pieceBuilder.buildPawn('black')
-        this.boardMap['h2'] = this.pieceBuilder.buildPawn('black')
-
+        this.chessBoard['a1'].piece = this.pieceBuilder.buildRook('black')
+        this.chessBoard['b1'].piece = this.pieceBuilder.buildKnight('black')
+        this.chessBoard['c1'].piece = this.pieceBuilder.buildBishop('black')
+        this.chessBoard['d1'].piece = this.pieceBuilder.buildQueen('black')
+        this.chessBoard['e1'].piece = this.pieceBuilder.buildKing('black')
+        this.chessBoard['f1'].piece = this.pieceBuilder.buildBishop('black')
+        this.chessBoard['g1'].piece = this.pieceBuilder.buildKnight('black')
+        this.chessBoard['h1'].piece = this.pieceBuilder.buildRook('black')
+        this.chessBoard['a2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['b2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['c2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['d2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['e2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['f2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['g2'].piece = this.pieceBuilder.buildPawn('black')
+        this.chessBoard['h2'].piece = this.pieceBuilder.buildPawn('black')
     }
 
-
     init(){
-        this.screen.buildHTMLChessBoard();
-        this.screen.positionPieces(this.boardMap)
+        this.screen.buildHTMLChessBoard(this.chessBoard);
+        this.screen.positionPieces(this.chessBoard)
         this.screen.configureMousedown(this.drag.bind(this));
         this.screen.configureDrop(this.drop.bind(this))
         this.screen.configureDragover(this.dragover.bind(this))
@@ -54,8 +68,6 @@ class Chess {
     drag(ev){
         ev.dataTransfer.dropEffect = "move";
         ev.dataTransfer.setData("text/plain", ev.target.id);
-        console.log(ev.target)
-
     }
 
     dragover(ev){
@@ -64,11 +76,8 @@ class Chess {
     }
 
     drop(ev) {
-        console.log(ev.dataTransfer)
         ev.preventDefault();
-        // Get the id of the target and add the moved element to the target's DOM
         const data = ev.dataTransfer.getData("text/plain");
-        console.log(data);
         ev.target.appendChild(document.getElementById(data))
     }
 
