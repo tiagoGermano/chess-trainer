@@ -59,7 +59,6 @@ class Chess {
 
     init(){
         this.screen.buildHTMLChessBoard(this.chessBoard);
-        //this.screen.positionPieces(this.chessBoard)
         this.screen.configureMousedown(this.drag.bind(this));
         this.screen.configureDrop(this.drop.bind(this))
         this.screen.configureDragover(this.dragover.bind(this))

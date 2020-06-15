@@ -2,8 +2,7 @@ function onLoad(){
     
     const injection = {
         screen : Screen,
-        pieceBuilder : PieceBuilder,
-        chessBoard : ChessBoard
+        pieceBuilder : PieceBuilder
     }
 
     const chess = new Chess(injection)
