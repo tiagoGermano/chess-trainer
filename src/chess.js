@@ -8,7 +8,7 @@ class Chess {
 
             let squareLight = i % 2 === 0 ? false : true;
             for(let j = 0; j < 8; j++){
-                let squareStyle = squareLight ? 'square-light': 'square-dark';
+                let squareStyle = squareLight ? 'square-dark': 'square-light';
                 squareLight = !squareLight;
 
                 this.chessBoard[this.letters[j] + i] = {
