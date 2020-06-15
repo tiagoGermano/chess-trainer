@@ -7,26 +7,36 @@ class Screen {
     static buildHTMLChessBoard(chessBoard){
 
         let HTMLBoardContent = '';
-        const letters = ['a','b','c','d','e','f','g','h'];
+        let letters = ['a','b','c','d','e','f','g','h']
+        let count = 0;
+        let total = 0;
 
-        for (let i = 8; i >= 1; i--) {
-            HTMLBoardContent =  HTMLBoardContent.concat(`
-              <div class="row">
-            `)
-
-            let squareLight = i % 2 === 0 ? false : true;
-            for(let j = 0; j < 8; j++){
-                let squareStyle = squareLight ? 'square-light': 'square-dark';
-                squareLight = !squareLight;
-
-                let square =  `
-                    <div id='${letters[j]}${i}' class="col square ${squareStyle}" ondragover="window.dragover_handler(event)" ondrop="window.drop_handler(event)">               
-                    </div>
+        for (const key in chessBoard) {
+            total++
+            if (chessBoard.hasOwnProperty(key)) {
+                const square = chessBoard[key];
+                
+                if(count % 8 === 0){
+                    HTMLBoardContent =  HTMLBoardContent.concat(`
+                    <div class="row">
+                    `)
+                }
+                
+                
+                let squareElement =  `
+                <div id='${key}' class="col square ${square.style}" ondragover="window.dragover_handler(event)" ondrop="window.drop_handler(event)">               
+                </div>
                 `
-                HTMLBoardContent = HTMLBoardContent.concat(square)
-            }
+                HTMLBoardContent = HTMLBoardContent.concat(squareElement)
+                
+                if(total === 8){
+                    HTMLBoardContent = HTMLBoardContent.concat('</div>')
+                    total = 0;
+                }                
 
-            HTMLBoardContent = HTMLBoardContent.concat('</div>')
+            }
+            
+            count++;
         }
 
         const chessBoardElem = document.getElementById(ID_BOARD)
