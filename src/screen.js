@@ -22,11 +22,22 @@ class Screen {
                     `)
                 }
                 
-                
-                let squareElement =  `
-                <div id='${key}' class="col square ${square.style}" ondragover="window.dragover_handler(event)" ondrop="window.drop_handler(event)">               
-                </div>
-                `
+                let squareElement  = '';
+                if(square.piece !== null){
+                    squareElement =  `
+                    <div id='${key}' class="col square ${square.style}" ondragover="window.dragover_handler(event)" ondrop="window.drop_handler(event)">  
+                        <span id="p${key}" class="piece-${square.piece.color}" draggable="true" ondragstart="window.dragstart_handler(event)">
+                            <i  class="piece fas ${square.piece.icon}" ></i>
+                        </span>
+                    </div>
+                    `
+                } else {
+                    squareElement =  `
+                    <div id='${key}' class="col square ${square.style}" ondragover="window.dragover_handler(event)" ondrop="window.drop_handler(event)">               
+                    </div>
+                    `
+                }
+
                 HTMLBoardContent = HTMLBoardContent.concat(squareElement)
                 
                 if(total === 8){
