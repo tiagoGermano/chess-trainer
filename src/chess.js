@@ -76,8 +76,26 @@ class Chess {
 
     drop(ev) {
         ev.preventDefault();
-        const data = ev.dataTransfer.getData("text/plain");
-        ev.target.appendChild(document.getElementById(data))
+        const pieceOriginId = ev.dataTransfer.getData("text/plain");
+        const positionInitial = document.getElementById(pieceOriginId).parentElement.id;
+        const piece = this.chessBoard[positionInitial].piece;
+        const coordDest = ev.target.id;
+
+        if(this.chessBoard[coordDest] !== undefined){
+
+            if(this.chessBoard[coordDest].piece !== null){
+                console.log('not allowed');
+                return;
+            }
+
+            
+            this.chessBoard[positionInitial].piece = null;
+            this.chessBoard[coordDest].piece = piece;
+            // TODO - this should made by screen class
+            ev.target.appendChild(document.getElementById(pieceOriginId))
+            console.log(`${piece.name} ${piece.color} from ${positionInitial} to ${coordDest}`)
+
+        }
     }
 
 }
